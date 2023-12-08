@@ -25,7 +25,8 @@ export default function RootLayout({
           <span className="w-1/5 h-full bg-[#da1d00]"></span>
           <span className="w-1/5 h-full bg-[#4bc9fc]"></span>
           <span className="w-1/5 h-full bg-[#046a38]"></span>
-        </div>
+				</div>
+				
         <nav className="grid items-center h-fit grid-cols-6 gap-x-4 font-bold text-xl">
           <Link href="/">
             <Image
@@ -43,8 +44,10 @@ export default function RootLayout({
           <button className="border-2 border-black rounded-md p-2 w-fit ">
             SIGN UP
           </button>
-        </nav>
-        {children}
+				</nav>
+				
+				{children}
+				
         <footer className="fixed bottom-0 bg-[#323e48] text-white">
           <div className="flex justify-stretch overflow-hidden w-screen h-3 items-center">
             <span className="w-1/5 h-full bg-[#ff671f]"></span>

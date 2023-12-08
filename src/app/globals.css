@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#pot {
+  animation: linear infinite;
+  animation-name: run;
+  animation-duration: 10s;
+}
+@keyframes run {
+  0% {
+    transform: translate(30%);
+  }
+  48% {
+    transform: translate(-48%);
+  }
+  50% {
+    transform: translate(-50%);
+  }
+  98% {
+    transform: translate(-98%);
+  }
+  100% {
+    transform: translate(-100%);
+  }
+}
