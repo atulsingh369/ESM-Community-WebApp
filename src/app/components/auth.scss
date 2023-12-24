@@ -1,0 +1,11 @@
+.authModal {
+  max-width: 35%;
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .authModal {
+    max-width: 80%;
+    width: 100%;
+  }
+}
