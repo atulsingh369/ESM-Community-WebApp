@@ -7,7 +7,11 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { auth } from "../../../config";
 
-const Auth = () => {
+interface Props {
+  setOpen: (isOpen: boolean) => void;
+}
+
+const Auth: React.FC<Props> = ({ setOpen }) => {
   const [isRegisterd, setIsRegisterd] = useState(true);
   const [loginForm, setLoginForm] = useState({ username: "", password: "" });
   const [registerForm, setRegisterForm] = useState({
@@ -28,6 +32,8 @@ const Auth = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          window.localStorage.setItem("user", JSON.stringify(user));
+          setOpen(false);
           toast.success(`${"Welcome Mr. " + user.displayName}`);
         })
         .catch((error) => {
@@ -192,3 +198,6 @@ const Auth = () => {
 };
 
 export default Auth;
+function setOpen() {
+  throw new Error("Function not implemented.");
+}

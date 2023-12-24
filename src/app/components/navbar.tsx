@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Auth from "./auth-modal";
@@ -9,17 +9,20 @@ import "./auth.scss";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // opening and closing of nav
   const [open, setOpen] = useState(false); // opening and closing of modal
+  const [user, setUser] = useState(null); // store User after Auth
 
-  //Handles the opening and closing of nav
+  //Handles the opening and closing of nav in mobile
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
 
-  // useEffect(() => {
-  //   window.addEventListener("click", (event) => {
-  //     setIsOpen(!isOpen);
-  //   });
-  // }, [isOpen]);
+  useEffect(() => {
+    if (window.localStorage.getItem("user")) {
+      let user: any = window.localStorage.getItem("user");
+      setUser(JSON.parse(user));
+      setOpen(false);
+    }
+  });
 
   return (
     <nav className="grid relative items-center h-fit grid-cols-2 md:grid-cols-6 gap-x-4 font-bold text-xl">
@@ -52,11 +55,14 @@ const Navbar = () => {
       <button className="border-0 outline-0 md:block hidden w-fit">
         NOTICES
       </button>
-      <button
-        onClick={() => setOpen(true)}
-        className="outline-0 border-2 border-black rounded-md p-2 w-fit md:block hidden">
-        LOGIN
-      </button>
+
+      {!user && (
+        <button
+          onClick={() => setOpen(true)}
+          className="outline-0 border-2 border-black rounded-md p-2 w-fit md:block hidden">
+          LOGIN
+        </button>
+      )}
 
       <button
         id="dropdownDefaultButton"
@@ -127,7 +133,7 @@ const Navbar = () => {
         classNames={{
           modal: "authModal",
         }}>
-        <Auth />
+        <Auth {...{ setOpen }} />
       </Modal>
     </nav>
   );
