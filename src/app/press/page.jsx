@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
+import Navbar from "../components/navbar";
 import "react-toastify/dist/ReactToastify.css";
-import "pure-react-carousel/dist/react-carousel.es.css";
-import Navbar from "./components/navbar";
 import { ToastContainer } from "react-toastify";
 
-export default function Home() {
+const Press = () => {
   return (
     <>
       <Navbar />
+      <p>Press</p>
       <ToastContainer
         position="top-center"
         autoClose={3500}
@@ -23,4 +23,6 @@ export default function Home() {
       />
     </>
   );
-}
+};
+
+export default Press;
