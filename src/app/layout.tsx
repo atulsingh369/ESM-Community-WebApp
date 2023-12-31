@@ -16,7 +16,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body
+        className={`${inter.className} antialiased overflow-x-hidden scrollbar-hidden`}>
         <div className="flex justify-stretch overflow-hidden w-screen h-3 items-center">
           <span className="w-1/5 h-full bg-[#ff671f]"></span>
           <span className="w-1/5 h-full bg-[#000081]"></span>
@@ -37,7 +38,14 @@ export default function RootLayout({
           </div>
 
           <p className="break-words">भूतपूर्व सैनिक जन कल्याण समिति उ.प्र.</p>
-          <p>❤️ Built by Atul Singh ❤️</p>
+          <p>
+            <a
+              href="https://bit.ly/atulsingh"
+              target="_blank"
+              rel="noopener noreferrer">
+              ❤️ Built by Atul Singh ❤️
+            </a>
+          </p>
         </footer>
       </body>
     </html>

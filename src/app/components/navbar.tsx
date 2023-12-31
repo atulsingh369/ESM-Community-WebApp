@@ -187,7 +187,7 @@ const Navbar = () => {
         classNames={{
           modal: "authModal",
         }}>
-        <Auth {...{ setOpen }} />
+        <Auth {...{ setOpen, setUser }} />
       </Modal>
     </nav>
   );

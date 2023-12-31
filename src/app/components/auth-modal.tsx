@@ -9,9 +9,10 @@ import { auth } from "../../../config";
 
 interface Props {
   setOpen: (isOpen: boolean) => void;
+  setUser: (user: object) => void;
 }
 
-const Auth: React.FC<Props> = ({ setOpen }) => {
+const Auth: React.FC<Props> = ({ setOpen, setUser }) => {
   const [isRegisterd, setIsRegisterd] = useState(true);
   const [loginForm, setLoginForm] = useState({ username: "", password: "" });
   const [registerForm, setRegisterForm] = useState({
@@ -34,6 +35,7 @@ const Auth: React.FC<Props> = ({ setOpen }) => {
           const user = userCredential.user;
           window.localStorage.setItem("user", JSON.stringify(user));
           setOpen(false);
+          setUser(user);
           toast.success(`${"Welcome Mr. " + user.displayName}`);
         })
         .catch((error) => {
@@ -198,6 +200,3 @@ const Auth: React.FC<Props> = ({ setOpen }) => {
 };
 
 export default Auth;
-function setOpen() {
-  throw new Error("Function not implemented.");
-}
