@@ -1,13 +1,21 @@
 import { Trash } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import Modal from "react-responsive-modal";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../../config";
+import Pagination from "../pagination";
+
+let PageSize = 10;
 
 const Gallery = () => {
   const [uploadSrc, SetUploadSrc] = useState("");
   const [isSrc, setIsSrc] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+
+  const [galleryData, setGalleryData] = useState<any[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const imgUpload = (e: any) => {
     try {
@@ -37,156 +45,61 @@ const Gallery = () => {
     setIsDelete(false);
   };
 
+  // Getting Gallery Data
+  const getGallery = async () => {
+    const docRef = doc(db, "gallery", "images");
+    try {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) setGalleryData(docSnap.data().images);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const currentGalleryData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return galleryData?.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, galleryData]);
+
+  useEffect(() => {
+    getGallery();
+  }, []);
+
   return (
     <div>
       <p className="text-[#9898A3] text-[16px]">Add / Delete Gallery Images</p>
 
       {/* Images */}
       <div className="my-12 flex justify-evenly items-center flex-wrap gap-10">
-        <div className="bg-white p-5 rounded-xl space-y-6">
-          <Image
-            src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
-            alt="carousel-images"
-            width={200}
-            height={200}
-            className="rounded-xl object-cover"
-          />
-          <div className="flex justify-between items-center">
-            <span>IMG_12</span>
-            <button onClick={() => setIsDelete(true)}>
-              <Trash color="#f10e0e" />
-            </button>
+        {currentGalleryData?.map((item: any, index: any) => (
+          <div key={index} className="bg-white p-5 rounded-xl space-y-6">
+            <Image
+              src={item.URL}
+              alt="carousel-images"
+              width={200}
+              height={200}
+              className="rounded-xl object-cover"
+            />
+            <div className="flex justify-between items-center w-full">
+              <span className="whitespace-nowrap overflow-hidden w-24 text-ellipsis">
+                {item.Name}
+              </span>
+              <button onClick={() => setIsDelete(true)}>
+                <Trash color="#f10e0e" />
+              </button>
+            </div>
           </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl space-y-6">
-          <Image
-            src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
-            alt="carousel-images"
-            width={200}
-            height={200}
-            className="rounded-xl object-cover"
-          />
-          <div className="flex justify-between items-center">
-            <span>IMG_12</span>
-            <button onClick={() => setIsDelete(true)}>
-              <Trash color="#f10e0e" />
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl space-y-6">
-          <Image
-            src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
-            alt="carousel-images"
-            width={200}
-            height={200}
-            className="rounded-xl object-cover"
-          />
-          <div className="flex justify-between items-center">
-            <span>IMG_12</span>
-            <button onClick={() => setIsDelete(true)}>
-              <Trash color="#f10e0e" />
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl space-y-6">
-          <Image
-            src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
-            alt="carousel-images"
-            width={200}
-            height={200}
-            className="rounded-xl object-cover"
-          />
-          <div className="flex justify-between items-center">
-            <span>IMG_12</span>
-            <button onClick={() => setIsDelete(true)}>
-              <Trash color="#f10e0e" />
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl space-y-6">
-          <Image
-            src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
-            alt="carousel-images"
-            width={200}
-            height={200}
-            className="rounded-xl object-cover"
-          />
-          <div className="flex justify-between items-center">
-            <span>IMG_12</span>
-            <button onClick={() => setIsDelete(true)}>
-              <Trash color="#f10e0e" />
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl space-y-6">
-          <Image
-            src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
-            alt="carousel-images"
-            width={200}
-            height={200}
-            className="rounded-xl object-cover"
-          />
-          <div className="flex justify-between items-center">
-            <span>IMG_12</span>
-            <button onClick={() => setIsDelete(true)}>
-              <Trash color="#f10e0e" />
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl space-y-6">
-          <Image
-            src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
-            alt="carousel-images"
-            width={200}
-            height={200}
-            className="rounded-xl object-cover"
-          />
-          <div className="flex justify-between items-center">
-            <span>IMG_12</span>
-            <button onClick={() => setIsDelete(true)}>
-              <Trash color="#f10e0e" />
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl space-y-6">
-          <Image
-            src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
-            alt="carousel-images"
-            width={200}
-            height={200}
-            className="rounded-xl object-cover"
-          />
-          <div className="flex justify-between items-center">
-            <span>IMG_12</span>
-            <button onClick={() => setIsDelete(true)}>
-              <Trash color="#f10e0e" />
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl space-y-6">
-          <Image
-            src="https://ik.imagekit.io/xji6otwwkb/default-image.jpg?updatedAt=1680849653455"
-            alt="carousel-images"
-            width={200}
-            height={200}
-            className="rounded-xl object-cover"
-          />
-          <div className="flex justify-between items-center">
-            <span>IMG_12</span>
-            <button onClick={() => setIsDelete(true)}>
-              <Trash color="#f10e0e" />
-            </button>
-          </div>
-        </div>
+        ))}
       </div>
+
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={galleryData.length}
+        pageSize={PageSize}
+        onPageChange={(page: any) => setCurrentPage(page)}
+      />
 
       {/* Upload Image */}
       <label
