@@ -14,5 +14,6 @@ export interface member {
   aadharUrl1: string;
   aadharUrl2: string;
   panNo: string;
+  role: string;
   address: string;
 }

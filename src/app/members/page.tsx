@@ -20,6 +20,7 @@ const Members = () => {
   const [currentPage, setCurrentPage] = useState(1); // Pagination
 
   const [firstoreData, setFirstoreData] = useState<any[]>([]); // importing data from Firestore
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
@@ -49,6 +50,12 @@ const Members = () => {
           setFirstoreData((firstoreData) => [...firstoreData, doc.data()])
         )
     );
+
+    const storedUserData = localStorage.getItem("user");
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      userData?.role == "admin" && setIsAdmin(true);
+    }
 
     return () => {
       unsubscribe;
@@ -112,7 +119,7 @@ const Members = () => {
       </div>
 
       {memberData && (
-        <MemberDetails {...{ isMember, setIsMember, memberData }} />
+        <MemberDetails {...{ isMember, setIsMember, memberData, isAdmin }} />
       )}
 
       <ToastContainer

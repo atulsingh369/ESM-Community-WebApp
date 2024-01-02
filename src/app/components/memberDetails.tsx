@@ -1,27 +1,27 @@
 import Image from "next/image";
 import Modal from "react-responsive-modal";
-import { toast } from "react-toastify";
 import { member } from "../membersType";
+import { useEffect, useState } from "react";
+import EditMemberDetails from "./editMemberDetails";
 
 interface Props {
   isMember: boolean;
   setIsMember: (isMember: boolean) => void;
   memberData: member;
+  isAdmin: boolean;
 }
 
 const MemberDetails: React.FC<Props> = ({
   isMember,
   setIsMember,
   memberData,
+  isAdmin,
 }) => {
-  const ediDetailsMem = () => {
-    try {
-      toast.success("Success");
-      setIsMember(false);
-    } catch (error) {
-      toast.error("Something went Wrong");
-    }
-  };
+  const [isEditMember, setIsEditMember] = useState(false);
+
+  // Getting Members Data
+  useEffect(() => {}, []);
+
   return (
     <>
       <Modal
@@ -34,7 +34,7 @@ const MemberDetails: React.FC<Props> = ({
         <div className="space-y-8">
           <div className="select-none space-y-12">
             <p className="underline underline-offset-4 text-xl lg:text-2xl font-semibold text-center">
-              Registration No : {memberData?.RegNo}
+              {isAdmin ? `Registration No : ${memberData?.RegNo}` : "Member"}
             </p>
 
             <div className="flex justify-evenly items-center w-full">
@@ -84,63 +84,70 @@ const MemberDetails: React.FC<Props> = ({
                 </div>
               )}
             </div>
-
-            <div className="flex justify-evenly items-center w-full">
-              <div className="space-y-4">
-                <p className="text-xl lg:text-2xl font-semibold break-words flex-wrap w-96">
-                  <span className="text-[#000]"> Aadhar No : </span>
-                  {memberData?.aadharNo}
-                </p>
-                <p className="text-xl lg:text-2xl font-semibold break-words flex-wrap w-96">
-                  <span className="text-[#000]"> Pan No : </span>
-                  {memberData?.panNo ? memberData?.panNo : "N/A"}
-                </p>
-                <p className="text-xl lg:text-2xl font-semibold break-words flex-wrap w-96">
-                  <span className="text-[#000]"> Email : </span>
-                  {memberData?.email}
-                </p>
-                <p className="text-xl lg:text-2xl font-semibold break-words flex-wrap w-96">
-                  <span className="text-[#000]"> Mobile No : </span>
-                  {memberData?.phoneNo}
-                </p>
-                <p className="text-xl lg:text-2xl font-semibold break-words flex-wrap w-96">
-                  <span className="text-[#000]"> Address : </span>
-                  {memberData?.address}
-                </p>
-              </div>
-
-              {memberData && (
-                <div className="flex flex-col space-y-6 justify-between items-center">
-                  <div>
-                    <Image
-                      src={memberData.aadharUrl1}
-                      alt="aadhar-front"
-                      width={200}
-                      height={200}
-                      className="rounded-xl object-cover mx-auto hover:scale-105 transition-all ease-in-out duration-300"
-                    />
-                  </div>
-                  <div>
-                    <Image
-                      src={memberData.aadharUrl2}
-                      alt="aadhar-back"
-                      width={200}
-                      height={200}
-                      className="rounded-xl object-cover mx-auto hover:scale-105 transition-all ease-in-out duration-300"
-                    />
-                  </div>
+            {isAdmin && (
+              <div className="flex justify-evenly items-center w-full">
+                <div className="space-y-4">
+                  <p className="text-xl lg:text-2xl font-semibold break-words flex-wrap w-96">
+                    <span className="text-[#000]"> Aadhar No : </span>
+                    {memberData?.aadharNo}
+                  </p>
+                  <p className="text-xl lg:text-2xl font-semibold break-words flex-wrap w-96">
+                    <span className="text-[#000]"> Pan No : </span>
+                    {memberData?.panNo ? memberData?.panNo : "N/A"}
+                  </p>
+                  <p className="text-xl lg:text-2xl font-semibold break-words flex-wrap w-96">
+                    <span className="text-[#000]"> Email : </span>
+                    {memberData?.email}
+                  </p>
+                  <p className="text-xl lg:text-2xl font-semibold break-words flex-wrap w-96">
+                    <span className="text-[#000]"> Mobile No : </span>
+                    {memberData?.phoneNo}
+                  </p>
+                  <p className="text-xl lg:text-2xl font-semibold break-words flex-wrap w-96">
+                    <span className="text-[#000]"> Address : </span>
+                    {memberData?.address}
+                  </p>
                 </div>
-              )}
-            </div>
+
+                {memberData && (
+                  <div className="flex flex-col space-y-6 justify-between items-center">
+                    <div>
+                      <Image
+                        src={memberData.aadharUrl1}
+                        alt="aadhar-front"
+                        width={200}
+                        height={200}
+                        className="rounded-xl object-cover mx-auto hover:scale-105 transition-all ease-in-out duration-300"
+                      />
+                    </div>
+                    <div>
+                      <Image
+                        src={memberData.aadharUrl2}
+                        alt="aadhar-back"
+                        width={200}
+                        height={200}
+                        className="rounded-xl object-cover mx-auto hover:scale-105 transition-all ease-in-out duration-300"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
-          <button
-            onClick={() => ediDetailsMem()}
-            className="bg-green-700 p-3 rounded-xl text-white outline-0 mx-auto flex justify-center items-center">
-            Edit Details
-          </button>
+          {isAdmin && (
+            <button
+              onClick={() => setIsEditMember(true)}
+              className="bg-green-700 p-3 rounded-xl text-white outline-0 mx-auto flex justify-center items-center">
+              Edit Details
+            </button>
+          )}
         </div>
       </Modal>
+
+      {memberData && (
+        <EditMemberDetails {...{ isEditMember, setIsEditMember, memberData }} />
+      )}
     </>
   );
 };

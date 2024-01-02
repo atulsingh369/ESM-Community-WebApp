@@ -5,11 +5,13 @@ import {
 } from "firebase/auth";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { auth } from "../../../config";
+import { auth, db } from "../../../config";
+import { doc, getDoc } from "firebase/firestore";
+import { member } from "../membersType";
 
 interface Props {
   setOpen: (isOpen: boolean) => void;
-  setUser: (user: object) => void;
+  setUser: (user: member) => void;
 }
 
 const Auth: React.FC<Props> = ({ setOpen, setUser }) => {
@@ -23,6 +25,14 @@ const Auth: React.FC<Props> = ({ setOpen, setUser }) => {
   });
   const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
+  const getUserData = (email: string) => {
+    getDoc(doc(db, "users", email)).then((docSnap: any) => {
+      if (!docSnap.exists()) return;
+      setUser(docSnap.data());
+      window.localStorage.setItem("user", JSON.stringify(docSnap.data()));
+    });
+  };
+
   const login = () => {
     if (loginForm.username === "" && loginForm.password === "") {
       toast.error("Fill all Fields");
@@ -33,9 +43,8 @@ const Auth: React.FC<Props> = ({ setOpen, setUser }) => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          window.localStorage.setItem("user", JSON.stringify(user));
+          user?.email && getUserData(user.email);
           setOpen(false);
-          setUser(user);
           toast.success(`${"Welcome Mr. " + user.displayName}`);
         })
         .catch((error) => {

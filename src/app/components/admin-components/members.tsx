@@ -190,7 +190,9 @@ const Members = () => {
       </div>
 
       {memberData && (
-        <MemberDetails {...{ isMember, setIsMember, memberData }} />
+        <MemberDetails
+          {...{ isMember, setIsMember, memberData, isAdmin: true }}
+        />
       )}
     </>
   );
