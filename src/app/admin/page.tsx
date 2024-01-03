@@ -84,7 +84,7 @@ const Admin = () => {
             </SheetTrigger>
             <SheetContent
               side="left"
-              className="bg-[#373C4D] p-10 w-1/6 sm:w-[540px] text-white rounded-r-[25px]">
+              className="bg-[#373C4D] p-10 w-1/6 sm:w-[540px] text-white border-[#373C4D] rounded-r-[25px]">
               <SheetHeader className="border-b-2 border-slate-400 pb-6">
                 <SheetTitle className="flex justify-between items-center">
                   <Avatar>
@@ -104,10 +104,10 @@ const Admin = () => {
                     <button
                       type="button"
                       onClick={() => setTabStatus(option)}
-                      className={`btn flex px-10 items-center text-[16px] font-semibold hover:text-black text-white w-full h-[61px] border-2 border-[#e6eff3] rounded-[15px] ${
+                      className={`btn flex px-10 items-center text-[16px] font-semibold hover:text-black text-white w-full h-[61px] border-2 rounded-[15px] ${
                         tabStatus.title == option.title
-                          ? "bg-[#e6eff3] text-gray-950"
-                          : "hover:bg-slate-400"
+                          ? "bg-[#e6eff3] text-gray-900"
+                          : "hover:bg-slate-400 border-slate-400"
                       }`}>
                       {option.icon}
                       &nbsp;&nbsp;&nbsp;&nbsp;{option.title}

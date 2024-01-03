@@ -89,7 +89,7 @@ const Members = () => {
                 setMemberData(member);
               }}
               key={index}
-              className="bg-white cursor-pointer p-5 w-72 rounded-xl space-y-6">
+              className="bg-white cursor-pointer p-5 w-72 h-96 rounded-xl space-y-6">
               <Image
                 src={member.photoURL}
                 alt="user-avatar"

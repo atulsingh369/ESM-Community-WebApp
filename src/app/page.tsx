@@ -31,6 +31,7 @@ export default function Home() {
       <Navbar />
 
       <div className="bg-[#e8e9eb] py-20">
+        {/* Carousel */}
         <div className="slider">
           <div className="slider-track">
             {/* Slides */}
@@ -42,7 +43,7 @@ export default function Home() {
                   width={500}
                   height={500}
                   priority={true}
-                  className="rounded-xl object-cover"
+                  className="rounded-xl object-cover h-[25rem]"
                 />
               </div>
             ))}

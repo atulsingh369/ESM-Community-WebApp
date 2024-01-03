@@ -79,7 +79,8 @@ const Carousel = () => {
               alt="carousel-images"
               width={200}
               height={200}
-              className="rounded-xl object-cover"
+              priority={true}
+              className="rounded-xl object-cover h-[15rem] w-[15rem]"
             />
             <div className="flex justify-between items-center w-full">
               <span className="whitespace-nowrap overflow-hidden w-24 text-ellipsis">
