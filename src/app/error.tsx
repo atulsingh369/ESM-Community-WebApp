@@ -33,14 +33,14 @@ export default function Error({
       </Link> */}
 
       <Image
-        src="https://ik.imagekit.io/xji6otwwkb/Error%20-%20404.gif?updatedAt=1704115051846"
+        src="https://ik.imagekit.io/xji6otwwkb/error.gif?updatedAt=1704300525441"
         alt="error-404"
         className="mx-auto md:block hidden"
         width={500}
         height={500}
       />
       <Image
-        src="https://ik.imagekit.io/xji6otwwkb/Error%20-%20404.gif?updatedAt=1704115051846"
+        src="https://ik.imagekit.io/xji6otwwkb/error.gif?updatedAt=1704300525441"
         alt="error-404"
         className="mx-auto block md:hidden"
         width={175}
