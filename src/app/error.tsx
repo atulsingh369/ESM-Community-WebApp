@@ -37,6 +37,7 @@ export default function Error({
         alt="error-404"
         className="mx-auto md:block hidden"
         width={500}
+        priority
         height={500}
       />
       <Image
@@ -44,6 +45,7 @@ export default function Error({
         alt="error-404"
         className="mx-auto block md:hidden"
         width={175}
+        priority
         height={175}
       />
       {clientError?.message && (

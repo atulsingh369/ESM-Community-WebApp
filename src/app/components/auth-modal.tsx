@@ -10,11 +10,11 @@ import { doc, getDoc } from "firebase/firestore";
 import { member } from "../membersType";
 
 interface Props {
-  setOpen: (isOpen: boolean) => void;
+  setOpenAuth: (isOpen: boolean) => void;
   setUser: (user: member) => void;
 }
 
-const Auth: React.FC<Props> = ({ setOpen, setUser }) => {
+const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
   const [isRegisterd, setIsRegisterd] = useState(true);
   const [loginForm, setLoginForm] = useState({ username: "", password: "" });
   const [registerForm, setRegisterForm] = useState({
@@ -44,7 +44,7 @@ const Auth: React.FC<Props> = ({ setOpen, setUser }) => {
           // Signed in
           const user = userCredential.user;
           user?.email && getUserData(user.email);
-          setOpen(false);
+          setOpenAuth(false);
           toast.success(`${"Welcome Mr. " + user.displayName}`);
         })
         .catch((error) => {

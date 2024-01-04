@@ -9,7 +9,7 @@ import { db } from "../../../config";
 import Pagination from "../components/pagination";
 import Modal from "react-responsive-modal";
 
-let PageSize = 12;
+let PageSize: number = 12;
 
 const Gallery = () => {
   const [isZoom, setIsZoom] = useState(false);
@@ -37,14 +37,15 @@ const Gallery = () => {
 
   useEffect(() => {
     getGallery();
+    if (window?.innerWidth < 500) PageSize = 8;
   }, []);
   return (
     <>
       <Navbar />
 
-      <div className="bg-[#e8e9eb] mb-40 h-fit p-10">
+      <div className="bg-[#e8e9eb] p-10">
         {/* Images */}
-        <div className="my-12 flex justify-evenly items-center flex-wrap gap-5">
+        <div className="md:my-12 flex justify-evenly items-center flex-wrap gap-10">
           {currentGalleryData?.map((item: any, index: any) => (
             <div
               key={index}
@@ -52,14 +53,23 @@ const Gallery = () => {
                 setIsZoom(true);
                 setPicDetails(item);
               }}
-              className="bg-white p-5 rounded-xl space-y-6">
+              className="bg-white p-5 rounded-xl">
               <Image
                 src={item.URL}
                 alt="gallery-images"
                 width={200}
                 height={200}
                 priority={true}
-                className="rounded-xl object-cover h-[18rem] w-[18rem]"
+                className="rounded-xl object-cover h-[18rem] w-[18rem] md:block hidden"
+              />
+
+              <Image
+                src={item.URL}
+                alt="gallery-images"
+                width={200}
+                height={200}
+                priority={true}
+                className="rounded-xl object-cover h-[20rem] w-[20rem] block md:hidden"
               />
             </div>
           ))}

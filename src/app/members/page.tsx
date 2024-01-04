@@ -12,7 +12,7 @@ import MemberDetails from "../components/memberDetails";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
-let PageSize = 15;
+let PageSize: number = 15;
 
 const Members = () => {
   const [isMember, setIsMember] = useState(false); // For opening/closing modal
@@ -57,6 +57,8 @@ const Members = () => {
       userData?.role == "admin" && setIsAdmin(true);
     }
 
+    if (window?.innerWidth < 500) PageSize = 8;
+
     return () => {
       unsubscribe;
     };
@@ -66,7 +68,7 @@ const Members = () => {
     <>
       <Navbar />
 
-      <div className="bg-[#e8e9eb] mb-40 h-fit p-10">
+      <div className="bg-[#e8e9eb] p-10">
         <div className="flex w-1/3 border-2 bg-white mx-auto border-[#ff671f] rounded-xl items-center justify-evenly">
           <Search />
           <Input
