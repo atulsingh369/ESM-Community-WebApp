@@ -24,14 +24,14 @@ const Navbar = () => {
   const router = useRouter();
 
   const logout = () => {
-    window.localStorage.removeItem("user");
+    window.localStorage.removeItem("userPayload");
     toast.success("Logged Out Succesfully");
     setUser(undefined);
     router.push("/");
   };
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem("user");
+    const storedUserData = localStorage.getItem("userPayload");
     if (storedUserData) {
       const userData = JSON.parse(storedUserData);
       setUser(userData);

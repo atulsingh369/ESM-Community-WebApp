@@ -10,8 +10,6 @@ import { doc, getDoc } from "firebase/firestore";
 import { member } from "../membersType";
 import { useRouter } from "next/navigation";
 
-export let isAuthFlow: boolean = false; // to check wheter user is registerd and ready for filing details
-
 interface Props {
   setOpenAuth: (isOpen: boolean) => void;
   setUser: (user: member) => void;
@@ -31,9 +29,16 @@ const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
 
   const getUserData = (email: string) => {
     getDoc(doc(db, "users", email)).then((docSnap: any) => {
-      if (!docSnap.exists()) return;
+      if (!docSnap.exists()) {
+        toast.error("User not Found");
+        return;
+      }
       setUser(docSnap.data());
-      window.localStorage.setItem("user", JSON.stringify(docSnap.data()));
+      window.localStorage.setItem(
+        "userPayload",
+        JSON.stringify(docSnap.data())
+      );
+      toast.success(`${"Welcome Mr. " + docSnap.data()?.displayName}`);
     });
   };
 
@@ -49,7 +54,6 @@ const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
           const user = userCredential.user;
           user?.email && getUserData(user.email);
           setOpenAuth(false);
-          toast.success(`${"Welcome Mr. " + user.displayName}`);
         })
         .catch((error) => {
           toast.error(error.code);
@@ -82,9 +86,9 @@ const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
             displayName: registerForm.name,
           });
           toast.success("Registerd Succesfully");
-          isAuthFlow = true;
+          window.localStorage.setItem("registerPayload", JSON.stringify(user));
           setTimeout(() => {
-            router.push(`/register/${registerForm.email}`);
+            router.push("/register");
           }, 2000);
         })
         .catch((error) => {
@@ -112,7 +116,7 @@ const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
               id="name"
               placeholder="Enter Name"
               required
-              className="relative fring-0 outline-none border border-neutral-500 placeholder-[#000081] rounded-lg focus:ring-[#000081]  focus:border-[#000081] block w-full p-2.5 checked:bg-emerald-500"
+              className="relative ring-0 outline-none border border-neutral-500 placeholder-[#000081] rounded-lg focus:ring-[#000081]  focus:border-[#000081] block w-full p-2.5 checked:bg-emerald-500"
               value={registerForm.name}
               onChange={(e) =>
                 setRegisterForm({ ...registerForm, name: e.target.value })
@@ -133,7 +137,7 @@ const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
               id="mail"
               placeholder="Enter Email"
               required
-              className="relative fring-0 outline-none border border-neutral-500 placeholder-[#000081] rounded-lg focus:ring-[#000081]  focus:border-[#000081] block w-full p-2.5 checked:bg-emerald-500"
+              className="relative ring-0 outline-none border border-neutral-500 placeholder-[#000081] rounded-lg focus:ring-[#000081]  focus:border-[#000081] block w-full p-2.5 checked:bg-emerald-500"
               value={isRegisterd ? loginForm.username : registerForm.email}
               onChange={(e) =>
                 isRegisterd
@@ -159,7 +163,7 @@ const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
               id="password"
               placeholder="Enter Password"
               required
-              className="relative fring-0 outline-none border border-neutral-500 placeholder-[#000081] rounded-lg focus:ring-[#000081]  focus:border-[#000081] block w-full p-2.5 checked:bg-emerald-500"
+              className="relative ring-0 outline-none border border-neutral-500 placeholder-[#000081] rounded-lg focus:ring-[#000081]  focus:border-[#000081] block w-full p-2.5 checked:bg-emerald-500"
               value={isRegisterd ? loginForm.password : registerForm.password}
               onChange={(e) =>
                 isRegisterd
@@ -185,7 +189,7 @@ const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
               id="cnfPassword"
               placeholder="Re-Enter Password"
               required
-              className="relative fring-0 outline-none border border-neutral-500 placeholder-[#000081] rounded-lg focus:ring-[#000081]  focus:border-[#000081] block w-full p-2.5 checked:bg-emerald-500"
+              className="relative ring-0 outline-none border border-neutral-500 placeholder-[#000081] rounded-lg focus:ring-[#000081]  focus:border-[#000081] block w-full p-2.5 checked:bg-emerald-500"
               value={registerForm.cPassword}
               onChange={(e) =>
                 setRegisterForm({ ...registerForm, cPassword: e.target.value })
