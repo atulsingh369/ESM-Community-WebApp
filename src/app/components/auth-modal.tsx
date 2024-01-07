@@ -10,6 +10,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { member } from "../membersType";
 import { useRouter } from "next/navigation";
 
+export let isAuthFlow: boolean = false; // to check wheter user is registerd and ready for filing details
+
 interface Props {
   setOpenAuth: (isOpen: boolean) => void;
   setUser: (user: member) => void;
@@ -80,9 +82,10 @@ const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
             displayName: registerForm.name,
           });
           toast.success("Registerd Succesfully");
+          isAuthFlow = true;
           setTimeout(() => {
-            router.push("/register");
-          }, 1000);
+            router.push(`/register/${registerForm.email}`);
+          }, 2000);
         })
         .catch((error) => {
           toast.error(error.code);
