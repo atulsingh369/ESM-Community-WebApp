@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { auth, db } from "../../../config";
 import { doc, getDoc } from "firebase/firestore";
 import { member } from "../membersType";
+import { useRouter } from "next/navigation";
 
 interface Props {
   setOpenAuth: (isOpen: boolean) => void;
@@ -24,6 +25,7 @@ const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
     cPassword: "",
   });
   const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  const router = useRouter();
 
   const getUserData = (email: string) => {
     getDoc(doc(db, "users", email)).then((docSnap: any) => {
@@ -78,6 +80,9 @@ const Auth: React.FC<Props> = ({ setOpenAuth, setUser }) => {
             displayName: registerForm.name,
           });
           toast.success("Registerd Succesfully");
+          setTimeout(() => {
+            router.push("/register");
+          }, 1000);
         })
         .catch((error) => {
           toast.error(error.code);

@@ -79,6 +79,19 @@
   display: none;
 }
 
+/* Modal Class */
+.tempModal {
+  max-width: 35%;
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .tempModal {
+    max-width: 85%;
+    width: 100%;
+  }
+}
+
 /* Carousel Horizontal Infinite Scroll */
 .slider {
   height: fit-content;

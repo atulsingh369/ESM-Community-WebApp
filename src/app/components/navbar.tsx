@@ -11,7 +11,6 @@ import React, { useEffect, useState } from "react";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Auth from "./auth-modal";
-import "./auth.scss";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -118,7 +117,7 @@ const Navbar = () => {
         ) : (
           <DropdownMenu>
             <DropdownMenuTrigger className="border-0 outline-0 rounded-md p-2 w-fit">
-              <div className="outline-0 border-2 border-black rounded-full p-0 md:p-1 w-fit ">
+              <div className="outline-0 border-2 border-black rounded-full p-1 w-fit ">
                 <Avatar>
                   <AvatarImage src={`${user.photoURL}`} />
                   <AvatarFallback>{`${user.displayName}`}</AvatarFallback>
@@ -154,7 +153,7 @@ const Navbar = () => {
         onClose={() => setOpenAuth(false)}
         center
         classNames={{
-          modal: "authModal",
+          modal: "tempModal rounded-xl",
         }}>
         {<Auth {...{ setOpenAuth, setUser }} />}
       </Modal>

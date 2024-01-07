@@ -29,7 +29,6 @@ import { Button } from "@/components/ui/button";
 import { Download, Upload } from "lucide-react";
 import Pagination from "../pagination";
 import { db } from "../../../../config";
-import Modal from "react-responsive-modal";
 import { member } from "@/app/membersType";
 import Image from "next/image";
 import { toast } from "react-toastify";

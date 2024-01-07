@@ -128,7 +128,7 @@ const Gallery = () => {
         onClose={() => setIsDelete(false)}
         center
         classNames={{
-          modal: "rounded-xl w-96",
+          modal: "rounded-xl tempModal",
         }}>
         <div className="space-y-6 flex justify-center items-center flex-col">
           <p className="text-xl text-black text-center font-bold mt-3">

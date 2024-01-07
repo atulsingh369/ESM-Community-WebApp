@@ -30,7 +30,7 @@ const EditMemberDetails: React.FC<Props> = ({
         onClose={() => setIsEditMember(false)}
         center
         classNames={{
-          modal: "rounded-xl w-1/2",
+          modal: "rounded-xl tempModal",
         }}>
         <div className="space-y-8">
           <div className="select-none space-y-12">

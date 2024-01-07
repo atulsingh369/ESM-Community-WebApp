@@ -57,7 +57,7 @@ const Members = () => {
       userData?.role == "admin" && setIsAdmin(true);
     }
 
-    if (window?.innerWidth < 500) PageSize = 8;
+    if (window?.innerWidth < 500) PageSize = 6;
 
     return () => {
       unsubscribe;
@@ -68,8 +68,8 @@ const Members = () => {
     <>
       <Navbar />
 
-      <div className="bg-[#e8e9eb] p-10">
-        <div className="flex w-1/3 border-2 bg-white mx-auto border-[#ff671f] rounded-xl items-center justify-evenly">
+      <div className="bg-[#e8e9eb] p-5 md:p-10">
+        <div className="flex w-full md:w-1/3 border-2 bg-white mx-auto border-[#ff671f] rounded-xl items-center justify-evenly">
           <Search />
           <Input
             type="text"
@@ -79,11 +79,11 @@ const Members = () => {
           />
         </div>
 
-        <p className="my-12 text-right text-xl font-semibold">
+        <p className="my-12 text-center md:text-right text-xl font-semibold">
           Total Members : {firstoreData.length}
         </p>
 
-        <div className="my-12 flex justify-evenly items-center flex-wrap gap-10">
+        <div className="md:my-12 flex justify-evenly items-center flex-wrap gap-y-10">
           {currentTableData.map((member, index) => (
             <div
               onClick={() => {

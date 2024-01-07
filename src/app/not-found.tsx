@@ -1,32 +1,21 @@
 "use client";
 import Image from "next/image";
-import "./globals.css";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
-  const [clientError, setClientError] = useState<Error>();
+export default function NotFound() {
   const [timer, setTimer] = useState(10);
 
   const router = useRouter();
 
   useEffect(() => {
-    if (error) {
-      setClientError(error);
-      setTimeout(() => {
-        router.push("/");
-      }, 10000);
-      setInterval(() => {
-        setTimer((t) => t - 1 / 2);
-      }, 1000);
-    }
-  }, [error, router]);
+    setTimeout(() => {
+      router.push("/");
+    }, 10000);
+    setInterval(() => {
+      setTimer((t) => t - 1 / 2);
+    }, 1000);
+  }, [router]);
   return (
     <div className="flex justify-center flex-col space-y-10 items-center h-screen w-screen">
       <p>
@@ -51,10 +40,7 @@ export default function Error({
         priority
         height={175}
       />
-      {clientError?.message && (
-        <p className="text-4xl text-center font-bold">{clientError?.message}</p>
-      )}
-      <p className="text-2xl font-semibold">Login to Continue...</p>
+      <p className="text-4xl text-center font-bold">Page Not Found !!</p>
     </div>
   );
 }
